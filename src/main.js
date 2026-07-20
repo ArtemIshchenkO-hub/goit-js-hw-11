@@ -36,20 +36,27 @@ const handleSubmit = e => {
   getImagesByQuery(query)
     .then(response => {
       if (response.hits.length === 0) {
-        throw new Error(
-          'Sorry, there are no images matching your search query. Please try again!'
-        );
+        iziToast.error({
+          message:
+            'Sorry, there are no images matching your search query. Please try again!',
+          backgroundColor: '#EF4040',
+          messageColor: '#fff',
+          position: 'topRight',
+          pauseOnHover: false,
+          close: false,
+        });
+
+        return;
       }
       createGallery(response.hits);
     })
     .catch(error => {
+      console.error(error);
+
       iziToast.error({
-        message: `${error.message}`,
+        message: 'Something went wrong. Please try again later.',
         backgroundColor: '#EF4040',
         messageColor: '#fff',
-        position: 'topRight',
-        pauseOnHover: false,
-        close: false,
       });
     })
     .finally(() => hideLoader());
