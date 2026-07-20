@@ -27,7 +27,8 @@ const handleSubmit = e => {
     });
 
     input.value = '';
-
+    clearGallery();
+    hideLoader();
     return;
   }
 
