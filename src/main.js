@@ -6,27 +6,42 @@ import {
   hideLoader,
   clearGallery,
 } from './js/render-functions.js';
-import { getImagesByQuery, params } from './js/pixabay-api.js';
+import getImagesByQuery from './js/pixabay-api.js';
 
 const searchForm = document.querySelector('.form');
 
 const handleSubmit = e => {
   e.preventDefault();
 
-  const formData = new FormData(e.currentTarget);
-  params.q = formData.get('search-text').trim();
+  const input = e.currentTarget.elements['search-text'];
+  const query = input.value.trim();
+  if (!query) {
+    iziToast.error({
+      message:
+        'Sorry, there are no images matching your search query. Please try again!',
+      backgroundColor: '#EF4040',
+      messageColor: '#fff',
+      position: 'topRight',
+      pauseOnHover: false,
+      close: false,
+    });
+
+    input.value = '';
+
+    return;
+  }
 
   clearGallery();
   showLoader();
 
-  getImagesByQuery(params)
+  getImagesByQuery(query)
     .then(response => {
-      if (response.data.hits.length === 0) {
+      if (response.hits.length === 0) {
         throw new Error(
           'Sorry, there are no images matching your search query. Please try again!'
         );
       }
-      const images = createGallery(response.data.hits);
+      createGallery(response.hits);
     })
     .catch(error => {
       iziToast.error({
