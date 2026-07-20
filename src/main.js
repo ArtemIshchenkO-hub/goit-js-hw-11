@@ -6,7 +6,7 @@ import {
   hideLoader,
   clearGallery,
 } from './js/render-functions.js';
-import getImagesByQuery from './js/pixabay-api.js';
+import { getImagesByQuery } from './js/pixabay-api.js';
 
 const searchForm = document.querySelector('.form');
 

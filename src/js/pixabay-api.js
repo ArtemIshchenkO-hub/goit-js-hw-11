@@ -4,7 +4,7 @@ const API_KEY = '56778535-647a0d2fab6513f9c5838607a';
 
 const pixabayApi = axios.create({ baseURL: 'https://pixabay.com/api/' });
 
-export default function getImagesByQuery(query) {
+export function getImagesByQuery(query) {
   return pixabayApi
     .get('', {
       params: {
