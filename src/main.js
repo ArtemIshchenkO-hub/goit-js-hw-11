@@ -17,8 +17,7 @@ const handleSubmit = e => {
   const query = input.value.trim();
   if (!query) {
     iziToast.error({
-      message:
-        'Sorry, there are no images matching your search query. Please try again!',
+      message: 'Search field cannot be empty!',
       backgroundColor: '#EF4040',
       messageColor: '#fff',
       position: 'topRight',
@@ -28,7 +27,6 @@ const handleSubmit = e => {
 
     input.value = '';
     clearGallery();
-    hideLoader();
     return;
   }
 
